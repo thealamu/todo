@@ -23,11 +23,11 @@ func (m *MemoryDB) GetAllItems() []todo.Todo {
 
 // GetSingleItem returns a to-do item with the given id
 func (m *MemoryDB) GetSingleItem(id int) (todo.Todo, error) {
-	td, err := m.findIndexForID(id)
+	i, err := m.findIndexForID(id)
 	if err != nil {
 		return todo.Todo{}, err
 	}
-	return inMemTodos[td], nil
+	return inMemTodos[i], nil
 }
 
 // FindIndexForID returns the index of a to-do item, given the ID.

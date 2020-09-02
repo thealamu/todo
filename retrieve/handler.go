@@ -1,9 +1,9 @@
 package retrieve
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/thealamu/todo/db"
@@ -44,5 +44,21 @@ func (h *Handler) GetAll(w http.ResponseWriter, r *http.Request) {
 
 // GetSingle serves a single to-do item
 func (h *Handler) GetSingle(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Getting Single")
+	// Read id variable from path
+	varID := mux.Vars(r)["id"]
+	todoID, err := strconv.Atoi(varID)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	h.logger.Printf("Getting single to-do item for ID %d", todoID)
+	todoItem, err := h.db.GetSingleItem(todoID)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = respond.JSON(w, todoItem)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

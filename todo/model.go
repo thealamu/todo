@@ -2,8 +2,8 @@ package todo
 
 // Todo is a to-do item
 type Todo struct {
-	id    int
-	title string
-	note  string
-	done  bool
+	ID    int    `json:"id"`
+	Title string `json:"title"`
+	Note  string `json:"note"`
+	Done  bool   `json:"done"`
 }

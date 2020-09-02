@@ -6,17 +6,20 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/thealamu/todo/db"
 )
 
 // Handler handles all item retrieval
 type Handler struct {
 	logger *log.Logger
+	db     db.DB
 }
 
 // New returns a new Handler
-func New(logger *log.Logger) *Handler {
+func New(logger *log.Logger, db db.DB) *Handler {
 	return &Handler{
 		logger: logger,
+		db:     db,
 	}
 }
 

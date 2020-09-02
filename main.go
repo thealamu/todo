@@ -9,6 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/thealamu/todo/create"
+	"github.com/thealamu/todo/db"
 	"github.com/thealamu/todo/delete"
 	"github.com/thealamu/todo/retrieve"
 	"github.com/thealamu/todo/update"
@@ -20,10 +21,11 @@ func main() {
 	// Build the router
 	router := mux.NewRouter()
 	// Delegate route registering and inject dependencies
-	create.New(logger).Register(router)
-	retrieve.New(logger).Register(router)
-	update.New(logger).Register(router)
-	delete.New(logger).Register(router)
+	var memDB = db.NewInMem()
+	create.New(logger, memDB).Register(router)
+	retrieve.New(logger, memDB).Register(router)
+	update.New(logger, memDB).Register(router)
+	delete.New(logger, memDB).Register(router)
 
 	srvAddr := getSrvAddress()
 	srv := &http.Server{

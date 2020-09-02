@@ -1,13 +1,13 @@
 package retrieve
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/thealamu/todo/db"
+	"github.com/thealamu/todo/respond"
 )
 
 // Handler handles all item retrieval
@@ -35,8 +35,8 @@ func (h *Handler) GetAll(w http.ResponseWriter, r *http.Request) {
 	h.logger.Println("Getting all to-do items")
 	items := h.db.GetAllItems()
 	h.logger.Printf("Returning %d to-do items\n", len(items))
-	// Write JSON of items to output
-	err := h.RespondJSON(w, items)
+	// Write items to output as JSON
+	err := respond.JSON(w, items)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,14 +45,4 @@ func (h *Handler) GetAll(w http.ResponseWriter, r *http.Request) {
 // GetSingle serves a single to-do item
 func (h *Handler) GetSingle(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Getting Single")
-}
-
-// RespondJSON responds with data as JSON
-func (h *Handler) RespondJSON(w http.ResponseWriter, data ...interface{}) error {
-	coded, err := json.Marshal(data)
-	if err != nil {
-		return err
-	}
-	w.Write(coded)
-	return nil
 }

@@ -1,3 +1,3 @@
 package create
 
-/* Handles creation of to-do items */
+/* Create to-do items */

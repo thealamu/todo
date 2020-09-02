@@ -1,3 +1,3 @@
 package update
 
-/* Handles updating of to-do items */
+/* Update to-do items */

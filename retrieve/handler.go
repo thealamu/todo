@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Handler handles all item creation
+// Handler handles all item retrieval
 type Handler struct {
 	logger *log.Logger
 }

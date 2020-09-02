@@ -1,3 +1,3 @@
 package retrieve
 
-/* Handles to-do item getting */
+/* Get to-do items */

@@ -1,3 +1,3 @@
 package delete
 
-/* Handles to-do item deletions */
+/* Delete to-do items */

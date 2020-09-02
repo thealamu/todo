@@ -14,15 +14,9 @@ import (
 	"github.com/thealamu/todo/update"
 )
 
-var logger = log.New(os.Stdout, "To-Do API:", log.LstdFlags|log.Lshortfile)
+var logger = log.New(os.Stdout, "To-Do API: ", log.LstdFlags|log.Lshortfile)
 
 func main() {
-	// We read port from the environment but default to 1028
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "1028"
-	}
-
 	// Build the router
 	router := mux.NewRouter()
 	// Delegate route registering whilst injecting a logger
@@ -31,8 +25,7 @@ func main() {
 	update.New(logger).Register(router)
 	delete.New(logger).Register(router)
 
-	// Build the address to run on
-	srvAddr := net.JoinHostPort("", port)
+	srvAddr := getSrvAddress()
 	srv := &http.Server{
 		Addr:         srvAddr,
 		Handler:      router,
@@ -41,8 +34,18 @@ func main() {
 	}
 
 	// Start the server
+	logger.Println("Starting the server on", srvAddr)
 	err := srv.ListenAndServe()
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func getSrvAddress() string {
+	// We read port from the environment but default to 1028
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "1028"
+	}
+	return net.JoinHostPort("", port)
 }

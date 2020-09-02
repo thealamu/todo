@@ -7,6 +7,7 @@ import (
 
 // JSON responds with data in JSON format
 func JSON(w http.ResponseWriter, data interface{}) error {
+	w.Header().Set("Content-Type", "application/json")
 	coded, err := json.Marshal(data)
 	if err != nil {
 		return err

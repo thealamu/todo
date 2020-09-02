@@ -13,5 +13,17 @@
             "url": "https://github.com/thealamu/todo/blob/master/LICENSE"
         },
         "version": "0.0.1"
-    }
+    },
+    "servers": [
+        {
+            "description": "Local To-do API deployment",
+            "url": "http://localhost:{port}",
+            "variables": {
+                "port": {
+                    "description": "Port you decide to run the app on",
+                    "default": "1028"
+                }
+            }
+        }
+    ]
 }

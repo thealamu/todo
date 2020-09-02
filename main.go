@@ -19,7 +19,7 @@ var logger = log.New(os.Stdout, "To-Do API: ", log.LstdFlags|log.Lshortfile)
 func main() {
 	// Build the router
 	router := mux.NewRouter()
-	// Delegate route registering whilst injecting a logger
+	// Delegate route registering and inject dependencies
 	create.New(logger).Register(router)
 	retrieve.New(logger).Register(router)
 	update.New(logger).Register(router)

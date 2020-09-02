@@ -23,7 +23,7 @@ func New(logger *log.Logger) *Handler {
 // Register registers the endpoints in mux
 func (h *Handler) Register(mux *mux.Router) {
 	mux.HandleFunc("/todos", h.GetAll).Methods(http.MethodGet)
-	mux.HandleFunc("/todos/{id}", h.GetSingle).Methods(http.MethodGet)
+	mux.HandleFunc("/todos/{id:[0-9]+}", h.GetSingle).Methods(http.MethodGet)
 }
 
 // GetAll serves all to-do items

@@ -17,7 +17,7 @@
     "servers": [
         {
             "description": "Local To-do API deployment",
-            "url": "http://localhost:{port}",
+            "url": "http://localhost:{port}/v1",
             "variables": {
                 "port": {
                     "description": "Port you decide to run the app on",
@@ -25,5 +25,94 @@
                 }
             }
         }
-    ]
+    ],
+    "components": {
+        "schemas": {
+            "todo": {
+                "title": "To-do item",
+                "description": "A to-do item",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Do stuff"
+                    },
+                    "note": {
+                        "type": "string",
+                        "example": "Do some stuff at Mr. Foo's Bar"
+                    },
+                    "done": {
+                        "type": "boolean",
+                        "default": false
+                    }
+                },
+                "required": [
+                    "title",
+                    "note"
+                ]
+            }
+        }
+    },
+    "paths": {
+        "/todos": {
+            "get": {
+                "summary": "All to-do items",
+                "description": "Get all to-do items",
+                "operationId": "todos/all",
+                "responses": {
+                    "200": {
+                        "description": "List of to-do items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/todo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create item",
+                "description": "Create a to-do item",
+                "operationId": "todos/new",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/todo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Item created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/todo"
+                                }
+                            }
+                        },
+                        "headers": {
+                            "Location": {
+                                "example": "http://localhost:1028/todos/5",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -2,17 +2,22 @@ package retrieve
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
 // Handler handles all item creation
-type Handler struct{}
+type Handler struct {
+	logger *log.Logger
+}
 
 // New returns a new Handler
-func New() *Handler {
-	return &Handler{}
+func New(logger *log.Logger) *Handler {
+	return &Handler{
+		logger: logger,
+	}
 }
 
 // Register registers the endpoints in mux

@@ -54,7 +54,8 @@ func (h *Handler) GetSingle(w http.ResponseWriter, r *http.Request) {
 	h.logger.Printf("Getting single to-do item for ID %d", todoID)
 	todoItem, err := h.db.GetSingleItem(todoID)
 	if err != nil {
-		log.Fatal(err)
+		http.NotFound(w, r)
+		return
 	}
 
 	err = respond.JSON(w, todoItem)

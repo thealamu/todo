@@ -58,7 +58,7 @@ func (h *Handler) GetSingle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = respond.JSON(w, todoItem)
+	err = respond.JSON(w, todoItem, http.StatusOK)
 	if err != nil {
 		log.Fatal(err)
 	}

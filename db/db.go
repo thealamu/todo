@@ -6,5 +6,6 @@ import "github.com/thealamu/todo/todo"
 type DB interface {
 	GetAllItems() []todo.Todo
 	GetSingleItem(id int) (todo.Todo, error)
+	GetNextID() int
 	AddItem(todo.Todo)
 }

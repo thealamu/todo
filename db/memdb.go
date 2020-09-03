@@ -30,6 +30,11 @@ func (m *MemoryDB) GetSingleItem(id int) (todo.Todo, error) {
 	return inMemTodos[i], nil
 }
 
+// AddItem adds a to-do item to the list
+func (m *MemoryDB) AddItem(td todo.Todo) {
+	inMemTodos = append(inMemTodos, td)
+}
+
 // FindIndexForID returns the index of a to-do item, given the ID.
 // It searches the slice of to-dos using the binary search algorithm.
 // The binary search algorithm is an efficient searching algorithm with a

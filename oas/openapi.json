@@ -55,6 +55,17 @@
                     "note"
                 ]
             }
+        },
+        "parameters": {
+            "id": {
+               "name": "id",
+               "in": "path",
+               "required": true,
+               "schema": {
+                   "type": "integer",
+                   "example": 3
+               } 
+            }
         }
     },
     "paths": {
@@ -107,6 +118,30 @@
                                 "example": "http://localhost:1028/todos/5",
                                 "schema": {
                                     "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/todos/{id}": {
+            "get": {
+                "summary": "Single to-do item",
+                "description": "Get a to-do item",
+                "operationId": "todos/single",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A to-do item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/todo"
                                 }
                             }
                         }

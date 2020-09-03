@@ -36,7 +36,7 @@ func (h *Handler) GetAll(w http.ResponseWriter, r *http.Request) {
 	items := h.db.GetAllItems()
 	h.logger.Printf("Returning %d to-do items\n", len(items))
 	// Write items to output as JSON
-	err := respond.JSON(w, items)
+	err := respond.JSON(w, items, http.StatusOK)
 	if err != nil {
 		log.Fatal(err)
 	}

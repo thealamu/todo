@@ -1,12 +1,15 @@
 package create
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/thealamu/todo/db"
+	"github.com/thealamu/todo/http/respond"
+	"github.com/thealamu/todo/todo"
 )
 
 // Handler handles all item creation
@@ -30,5 +33,19 @@ func (h *Handler) Register(mux *mux.Router) {
 
 // CreateSingle creates a single to-do item
 func (h *Handler) CreateSingle(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Creating Single")
+	var item todo.Todo
+	err := json.NewDecoder(r.Body).Decode(&item)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Set the next ID on the to-do item
+	item.ID = h.db.GetNextID()
+	// Save the to-do item
+	h.logger.Println("Creating to-do item with ID", item.ID)
+	h.db.AddItem(item)
+	// Return Location of item
+	itemLoc := r.Host + fmt.Sprintf("/todos/%d", item.ID)
+	w.Header().Set("Location", itemLoc)
+	// Return full to-do item
+	respond.JSON(w, item, http.StatusCreated)
 }

@@ -34,7 +34,7 @@ func (m *MemoryDB) GetSingleItem(id int) (todo.Todo, error) {
 func (m *MemoryDB) GetNextID() int {
 	hIndx := len(inMemTodos) - 1
 	if hIndx < 0 {
-		return 0
+		return 1
 	}
 	return inMemTodos[hIndx].ID + 1
 }

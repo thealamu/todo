@@ -30,6 +30,15 @@ func (m *MemoryDB) GetSingleItem(id int) (todo.Todo, error) {
 	return inMemTodos[i], nil
 }
 
+// GetNextID returns the next to-do ID
+func (m *MemoryDB) GetNextID() int {
+	hIndx := len(inMemTodos) - 1
+	if hIndx < 0 {
+		return 0
+	}
+	return inMemTodos[hIndx].ID + 1
+}
+
 // AddItem adds a to-do item to the list
 func (m *MemoryDB) AddItem(td todo.Todo) {
 	inMemTodos = append(inMemTodos, td)

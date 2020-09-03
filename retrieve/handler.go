@@ -7,7 +7,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/thealamu/todo/db"
-	"github.com/thealamu/todo/respond"
+	"github.com/thealamu/todo/http/respond"
 )
 
 // Handler handles all item retrieval

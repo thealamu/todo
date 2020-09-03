@@ -115,7 +115,7 @@
                         },
                         "headers": {
                             "Location": {
-                                "example": "http://localhost:1028/todos/5",
+                                "example": "localhost:1028/todos/5",
                                 "schema": {
                                     "type": "string"
                                 }

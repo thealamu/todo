@@ -126,15 +126,15 @@
             }
         },
         "/todos/{id}": {
+            "parameters": [
+               {
+                   "$ref": "#/components/parameters/id"
+               } 
+            ],
             "get": {
                 "summary": "Single to-do item",
                 "description": "Get a to-do item",
                 "operationId": "todos/single",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "A to-do item",
@@ -145,6 +145,36 @@
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete to-do item",
+                "description": "Delete a to-do item",
+                "operationId": "todo/delete",
+                "responses": {
+                    "200": {
+                        "description": "Item deleted"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update to-do item",
+                "description": "Update a to-do item",
+                "operationId": "todo/update",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema":{
+                                "$ref": "#/components/schemas/todo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Item updated"
                     }
                 }
             }

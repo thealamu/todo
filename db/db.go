@@ -8,4 +8,5 @@ type DB interface {
 	GetSingleItem(id int) (todo.Todo, error)
 	GetNextID() int
 	AddItem(todo.Todo)
+	DeleteItem(id int) error
 }

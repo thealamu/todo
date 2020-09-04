@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/thealamu/todo/todo"
 )
@@ -9,6 +10,7 @@ import (
 // MemoryDB is an in-memory implementation of the DB interface
 type MemoryDB struct{}
 
+var l sync.Mutex
 var inMemTodos []todo.Todo
 
 // NewInMem returns an in-memory DB
@@ -41,6 +43,8 @@ func (m *MemoryDB) GetNextID() int {
 
 // AddItem adds a to-do item to the list
 func (m *MemoryDB) AddItem(td todo.Todo) {
+	l.Lock()
+	defer l.Unlock()
 	inMemTodos = append(inMemTodos, td)
 }
 

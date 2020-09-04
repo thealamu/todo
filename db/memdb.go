@@ -63,6 +63,18 @@ func (m *MemoryDB) DeleteItem(id int) error {
 	return nil
 }
 
+// UpdateItem updates to-do item with id
+func (m *MemoryDB) UpdateItem(td todo.Todo) error {
+	l.Lock()
+	defer l.Unlock()
+	indx, err := m.findIndexForID(td.ID)
+	if err != nil {
+		return err
+	}
+	inMemTodos[indx] = td
+	return nil
+}
+
 // FindIndexForID returns the index of a to-do item, given the ID.
 // It searches the slice of to-dos using the binary search algorithm.
 // The binary search algorithm is an efficient searching algorithm with a

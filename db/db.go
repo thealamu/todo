@@ -9,4 +9,5 @@ type DB interface {
 	GetNextID() int
 	AddItem(todo.Todo)
 	DeleteItem(id int) error
+	UpdateItem(todo.Todo) error
 }

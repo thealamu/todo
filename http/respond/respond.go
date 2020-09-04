@@ -16,3 +16,9 @@ func JSON(w http.ResponseWriter, data interface{}, statusCode int) error {
 	w.Write(coded)
 	return nil
 }
+
+// Error responds with error in plain text
+func Error(w http.ResponseWriter, err error, statusCode int) {
+	w.WriteHeader(statusCode)
+	w.Write([]byte(err.Error()))
+}

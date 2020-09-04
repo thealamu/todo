@@ -38,7 +38,8 @@ func (h *Handler) GetAll(w http.ResponseWriter, r *http.Request) {
 	// Write items to output as JSON
 	err := respond.JSON(w, items, http.StatusOK)
 	if err != nil {
-		log.Fatal(err)
+		respond.Error(w, err, http.StatusInternalServerError)
+		return
 	}
 }
 
@@ -48,7 +49,8 @@ func (h *Handler) GetSingle(w http.ResponseWriter, r *http.Request) {
 	varID := mux.Vars(r)["id"]
 	todoID, err := strconv.Atoi(varID)
 	if err != nil {
-		log.Fatal(err)
+		respond.Error(w, err, http.StatusBadRequest)
+		return
 	}
 
 	h.logger.Printf("Getting single to-do item for ID %d", todoID)
@@ -60,6 +62,7 @@ func (h *Handler) GetSingle(w http.ResponseWriter, r *http.Request) {
 
 	err = respond.JSON(w, todoItem, http.StatusOK)
 	if err != nil {
-		log.Fatal(err)
+		respond.Error(w, err, http.StatusInternalServerError)
+		return
 	}
 }

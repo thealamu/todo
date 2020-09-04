@@ -7,6 +7,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/thealamu/todo/db"
+	"github.com/thealamu/todo/http/respond"
 )
 
 // Handler handles all item creation
@@ -36,6 +37,7 @@ func (h *Handler) DeleteSingle(w http.ResponseWriter, r *http.Request) {
 	h.logger.Println("Deleting to-do item with ID", todoID)
 	err := h.db.DeleteItem(todoID)
 	if err != nil {
-		log.Fatal(err)
+		respond.Error(w, err, http.StatusBadRequest)
+		return
 	}
 }

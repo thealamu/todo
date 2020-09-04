@@ -36,7 +36,8 @@ func (h *Handler) CreateSingle(w http.ResponseWriter, r *http.Request) {
 	var item todo.Todo
 	err := json.NewDecoder(r.Body).Decode(&item)
 	if err != nil {
-		log.Fatal(err)
+		respond.Error(w, err, http.StatusBadRequest)
+		return
 	}
 	// Set the next ID on the to-do item
 	item.ID = h.db.GetNextID()

@@ -1,9 +1,9 @@
 package delete
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/thealamu/todo/db"
@@ -30,5 +30,12 @@ func (h *Handler) Register(mux *mux.Router) {
 
 // DeleteSingle deletes a single to-do item
 func (h *Handler) DeleteSingle(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Deleting Single")
+	varID := mux.Vars(r)["id"]
+	todoID, _ := strconv.Atoi(varID)
+	// Delete to-do
+	h.logger.Println("Deleting to-do item with ID", todoID)
+	err := h.db.DeleteItem(todoID)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
